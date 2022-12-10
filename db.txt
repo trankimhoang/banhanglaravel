@@ -1,0 +1,27 @@
+-products
+    + id
+    + name
+    + image
+    + price
+    + description
+
+-categories
+    + id
+    + name
+    + image
+
+-category_product
+    + category_id
+    + product_id
+
+-product_image
+    + id
+    + image
+    + product_id
+
+-admin
+    + id
+    + name
+    + email
+    + password
+
