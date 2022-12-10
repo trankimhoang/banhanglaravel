@@ -55,8 +55,8 @@
                         <a href="{{ route('logout') }}"><i class="fa fa-user-o"></i> Logout</a>
                     </li>
                 @else
-                    <li><a href="{{ route('login') }}"><i class="fa fa-user-o"></i> {{ __('login') }}</a></li>
-                    <li><a href="{{ route('register') }}"><i class="fa fa-user-o"></i> Register</a></li>
+                    <li><a href="{{ route('show-form-login') }}"><i class="fa fa-user-o"></i> {{ __('login') }}</a></li>
+                    <li><a href="{{ route('show-form-register') }}"><i class="fa fa-user-o"></i> Register</a></li>
                 @endif
 
             </ul>

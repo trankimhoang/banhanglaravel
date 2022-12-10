@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\User\UserRegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -42,7 +43,7 @@ class AuthController extends Controller
                 return redirect()->route('home');
             }
 
-            return redirect()->route('show-form-login')->with('error', 'Email hoac mat khau khong chinh xac');
+            return redirect()->route('show-form-login')->withErrors(['error' => 'Email hoac mat khau khong chinh xac']);
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
             return redirect()->back()->withErrors(['server_error' => $exception->getMessage()]);
@@ -53,7 +54,7 @@ class AuthController extends Controller
         try {
             Auth::guard('web')->logout();
 
-            return redirect()->route('login');
+            return redirect()->route('show-form-login');
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
             return redirect()->back()->withErrors(['server_error' => $exception->getMessage()]);

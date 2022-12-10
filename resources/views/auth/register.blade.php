@@ -8,7 +8,7 @@
             <input type="text" name="email" class="form-control" placeholder="email" value="{{ old('email') }}">
             @error('email')
                 <div class="alert alert-danger">
-                    {{ $errors->first('email') }}
+                    {{ $message }}
                 </div>
             @enderror
         </div>
@@ -18,7 +18,7 @@
             <input type="text" name="name" class="form-control" placeholder="name" value="{{ old('name') }}">
             @error('name')
                 <div class="alert alert-danger">
-                    {{ $errors->first('name') }}
+                    {{ $message }}
                 </div>
             @enderror
         </div>
@@ -28,7 +28,7 @@
             <input type="password" name="password" class="form-control" placeholder="password" value="{{ old('password') }}">
             @error('password')
                 <div class="alert alert-danger">
-                    {{ $errors->first('password') }}
+                    {{ $message }}
                 </div>
             @enderror
         </div>
@@ -38,7 +38,7 @@
             <input type="password" name="confirm_password" class="form-control" placeholder="confirm-password" value="{{ old('confirm_password') }}">
             @error('confirm_password')
                 <div class="alert alert-danger">
-                    {{ $errors->first('confirm_password') }}
+                    {{ $message }}
                 </div>
             @enderror
         </div>
