@@ -1,11 +1,5 @@
 @extends('layout.master_user')
 @section('content')
-    @error('server_error')
-        <div class="alert alert-danger">
-            {{ $errors->first('server_error') }}
-        </div>
-    @enderror
-
     <form action="" method="post">
         @csrf
         <h3>Dang Ky</h3>

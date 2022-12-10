@@ -199,6 +199,11 @@
 <div class="section">
     <!-- container -->
     <div class="container">
+        @error('server_error')
+            <div class="alert alert-danger">
+                {{ $errors->first('server_error') }}
+            </div>
+        @enderror
         @yield('content')
     </div>
 </div>
