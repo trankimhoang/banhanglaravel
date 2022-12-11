@@ -9,9 +9,20 @@
 
 
     Route::group(['middleware' => 'auth:admin'], function () {
-        Route::get('home', function (){
-            echo 232;
-        })->name('home');
+        Route::get('home', [\App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
+
+        Route::get('logout', [\App\Http\Controllers\Admin\Auth\AuthController::class, 'logout'])->name('logout');
+
+        Route::get('product/index', [\App\Http\Controllers\Admin\ProductController::class, 'index'])->name('product.index');
+
+        Route::get('product/add', [\App\Http\Controllers\Admin\ProductController::class, 'addProduct'])->name('product.add');
+        Route::post('product/add', [\App\Http\Controllers\Admin\ProductController::class, 'addProductPost'])->name('product.add.post');
+
+        Route::get('product/delete/{id}', [\App\Http\Controllers\Admin\ProductController::class, 'deleteProduct'])->name('product.delete');
+
+        Route::get('product/edit/{id}', [\App\Http\Controllers\Admin\ProductController::class, 'editProduct'])->name('product.edit');
+        Route::post('product/edit', [\App\Http\Controllers\Admin\ProductController::class, 'editProductPost'])->name('product.edit.post');
+
     });
 
 

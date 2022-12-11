@@ -28,4 +28,15 @@ class AuthController extends Controller
         }
     }
 
+    public function logout(){
+        try {
+            Auth::guard('admin')->logout();
+
+            return redirect()->route('admin.show-form-login');
+        }catch (\Exception $exception){
+            Log::error($exception->getMessage());
+            return redirect()->back()->withErrors(['server_error' => $exception->getMessage()]);
+        }
+    }
+
 }
