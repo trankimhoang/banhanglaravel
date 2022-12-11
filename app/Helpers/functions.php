@@ -7,3 +7,7 @@
 
         return $imagePath . '/' . $fileName;
     }
+
+    function formartPriceVnd($number) {
+        return number_format($number, 0, '', ',') . ' VND';
+    }

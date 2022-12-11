@@ -73,7 +73,7 @@
                 <!-- LOGO -->
                 <div class="col-md-3">
                     <div class="header-logo">
-                        <a href="#" class="logo">
+                        <a href="{{ route('home') }}" class="logo">
                             <img src="{{ asset('theme/user/img/logo.png') }}" alt="">
                         </a>
                     </div>
@@ -83,13 +83,8 @@
                 <!-- SEARCH BAR -->
                 <div class="col-md-6">
                     <div class="header-search">
-                        <form>
-                            <select class="input-select">
-                                <option value="0">All Categories</option>
-                                <option value="1">Category 01</option>
-                                <option value="1">Category 02</option>
-                            </select>
-                            <input class="input" placeholder="Search here">
+                        <form action="{{ route('search') }}" method="get">
+                            <input class="input" placeholder="Search here" name="search" value="{{ request()->get('search') ?? '' }}">
                             <button class="search-btn">Search</button>
                         </form>
                     </div>
@@ -99,58 +94,51 @@
                 <!-- ACCOUNT -->
                 <div class="col-md-3 clearfix">
                     <div class="header-ctn">
-                        <!-- Wishlist -->
-                        <div>
-                            <a href="#">
-                                <i class="fa fa-heart-o"></i>
-                                <span>Your Wishlist</span>
-                                <div class="qty">2</div>
-                            </a>
-                        </div>
-                        <!-- /Wishlist -->
 
-                        <!-- Cart -->
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                <i class="fa fa-shopping-cart"></i>
-                                <span>Your Cart</span>
-                                <div class="qty">3</div>
-                            </a>
-                            <div class="cart-dropdown">
-                                <div class="cart-list">
-                                    <div class="product-widget">
-                                        <div class="product-img">
-                                            <img src="./img/product01.png" alt="">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                            <h4 class="product-price"><span class="qty">1x</span>$980.00</h4>
-                                        </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
-                                    </div>
+                        @if(\Illuminate\Support\Facades\Auth::guard('web')->check())
+                            <!-- Cart -->
+                            <div class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    <span>Your Cart</span>
+                                    <div class="qty">{{ \Illuminate\Support\Facades\Auth::guard('web')->user()->Carts->sum('quality') }}</div>
+                                </a>
+                                <div class="cart-dropdown">
+                                    <div class="cart-list">
+                                        @php
+                                            $totalCart = 0;
+                                        @endphp
 
-                                    <div class="product-widget">
-                                        <div class="product-img">
-                                            <img src="./img/product02.png" alt="">
-                                        </div>
-                                        <div class="product-body">
-                                            <h3 class="product-name"><a href="#">product name goes here</a></h3>
-                                            <h4 class="product-price"><span class="qty">3x</span>$980.00</h4>
-                                        </div>
-                                        <button class="delete"><i class="fa fa-close"></i></button>
+                                        @foreach(\Illuminate\Support\Facades\Auth::guard('web')->user()->Carts as $cart)
+                                            @php
+                                                $totalCart += $cart->quality * $cart->Product->price;
+                                            @endphp
+
+                                            <div class="product-widget">
+                                                <div class="product-img">
+                                                    <img src="{{ $cart->Product->getImage() }}" alt="">
+                                                </div>
+                                                <div class="product-body">
+                                                    <h3 class="product-name"><a href="#">{{ $cart->Product->name }}</a></h3>
+                                                    <h4 class="product-price"><span class="qty">{{ $cart->quality }}x</span>{{ $cart->Product->getPriceWithFormat() }}</h4>
+                                                </div>
+                                                <button class="delete"><i class="fa fa-close"></i></button>
+                                            </div>
+                                        @endforeach
+
                                     </div>
-                                </div>
-                                <div class="cart-summary">
-                                    <small>3 Item(s) selected</small>
-                                    <h5>SUBTOTAL: $2940.00</h5>
-                                </div>
-                                <div class="cart-btns">
-                                    <a href="#">View Cart</a>
-                                    <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+                                    <div class="cart-summary">
+                                        <small>{{ \Illuminate\Support\Facades\Auth::guard('web')->user()->Carts->count() }} Item(s) selected</small>
+                                        <h5>SUBTOTAL: {{ formartPriceVnd($totalCart) }}</h5>
+                                    </div>
+                                    <div class="cart-btns">
+                                        <a href="{{ route('cart.detail') }}">View Cart</a>
+                                        <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- /Cart -->
+                            <!-- /Cart -->
+                        @endif
 
                         <!-- Menu Toogle -->
                         <div class="menu-toggle">
@@ -180,7 +168,7 @@
         <div id="responsive-nav">
             <!-- NAV -->
             <ul class="main-nav nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <li class="active"><a href="{{ route('home') }}">Home</a></li>
                 <li><a href="#">Hot Deals</a></li>
                 <li><a href="#">Categories</a></li>
                 <li><a href="#">Laptops</a></li>
@@ -204,6 +192,17 @@
                 {{ $errors->first('server_error') }}
             </div>
         @enderror
+        @if(session()->has('success'))
+            <div class="alert alert-success">
+                {{ session()->get('success') }}
+            </div>
+        @endif
+
+        @if(session()->has('error'))
+            <div class="alert alert-danger">
+                {{ session()->get('error') }}
+            </div>
+        @endif
         @yield('content')
     </div>
 </div>

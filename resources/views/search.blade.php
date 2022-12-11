@@ -1,6 +1,7 @@
 @extends('layout.master_user')
 
 @section('content')
+    <h3>Tim thay {{ $listProduct->count() }} san pham cho tu khoa '{{ $search }}'</h3>
     <div class="row" style="margin-bottom: 50px;">
         <!-- Products tab & slick -->
         <div class="col-md-12">
@@ -10,8 +11,8 @@
                     <div id="tab1" class="tab-pane active">
                         <div class="products-slick" data-nav="#slick-nav-1">
                             <!-- product -->
-                            @foreach($listProduct as $productItem)
-                                @include('include.product_item', ['product' => $productItem])
+                            @foreach($listProduct as $product)
+                                @include('include.product_item', ['product' => $product])
                             @endforeach
 
                             <!-- /product -->
