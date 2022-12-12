@@ -61,6 +61,6 @@ class HomeController extends Controller
     }
 
     public function cartDetail(Request $request){
-        return view('cart.index');
+        return view('cart.list');
     }
 }

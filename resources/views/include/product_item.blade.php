@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="product-body">
-        <p class="product-category">Category</p>
+        <p class="product-category">Name</p>
         <h3 class="product-name"><a href="{{ route('product.detail', ['id'=>$product->id]) }}">{{ $product->name }}</a></h3>
         <h4 class="product-price">{{ $product->getPriceWithFormat() }}</h4>
         <div class="product-rating">

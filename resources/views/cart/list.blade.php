@@ -29,7 +29,7 @@
                 <td>{{ $cart->Product->name }}</td>
                 <td>{{ $cart->quality }}</td>
                 <td>{{ $cart->Product->getPriceWithFormat() }}</td>
-                <td>{{ formartPriceVnd($totalRow) }}</td>
+                <td style="color: #be2617">{{ formartPriceVnd($totalRow) }}</td>
             </tr>
         @endforeach
 

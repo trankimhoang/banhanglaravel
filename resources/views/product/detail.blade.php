@@ -28,7 +28,7 @@
                 <div>
                     <h3 class="product-price">{{ $product->getPriceWithFormat() }}</h3>
                 </div>
-                <p>{{ $product->description }}.</p>
+                <p>{!! $product->description !!}.</p>
 
                 <div class="add-to-cart">
                     <form action="{{ route('cart.add') }}" method="get">
