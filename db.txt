@@ -25,3 +25,18 @@
     + email
     + password
 
+-1 user co nhieu order, 1 order co nhieu product, 1 product thuoc nhieu order
+
+-order
+    + id
+    + note
+    + phone
+    + address
+    + user_id
+    + status
+
+-product_order
+    + product_id
+    + order_id
+    + price
+    + quality

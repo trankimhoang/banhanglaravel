@@ -17,6 +17,7 @@
         @error('error')
             <h1>{{ $message }}</h1>
         @enderror
+        <h3>LOG IN</h3>
         <form action="{{ route('admin.login') }}" method="post">
             @csrf
             <input type="text" id="login" class="fadeIn second" name="email" value="admin@admin.com" placeholder="email">

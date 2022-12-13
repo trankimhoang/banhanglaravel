@@ -94,51 +94,11 @@
                 <!-- ACCOUNT -->
                 <div class="col-md-3 clearfix">
                     <div class="header-ctn">
-
-                        @if(\Illuminate\Support\Facades\Auth::guard('web')->check())
-                            <!-- Cart -->
-                            <div class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    <span>Your Cart</span>
-                                    <div class="qty">{{ \Illuminate\Support\Facades\Auth::guard('web')->user()->Carts->sum('quality') }}</div>
-                                </a>
-                                <div class="cart-dropdown">
-                                    <div class="cart-list">
-                                        @php
-                                            $totalCart = 0;
-                                        @endphp
-
-                                        @foreach(\Illuminate\Support\Facades\Auth::guard('web')->user()->Carts as $cart)
-                                            @php
-                                                $totalCart += $cart->quality * $cart->Product->price;
-                                            @endphp
-
-                                            <div class="product-widget">
-                                                <div class="product-img">
-                                                    <img src="{{ $cart->Product->getImage() }}" alt="">
-                                                </div>
-                                                <div class="product-body">
-                                                    <h3 class="product-name"><a href="#">{{ $cart->Product->name }}</a></h3>
-                                                    <h4 class="product-price"><span class="qty">{{ $cart->quality }}x</span>{{ $cart->Product->getPriceWithFormat() }}</h4>
-                                                </div>
-                                                <button class="delete"><i class="fa fa-close"></i></button>
-                                            </div>
-                                        @endforeach
-
-                                    </div>
-                                    <div class="cart-summary">
-                                        <small>{{ \Illuminate\Support\Facades\Auth::guard('web')->user()->Carts->count() }} Item(s) selected</small>
-                                        <h5>SUBTOTAL: {{ formartPriceVnd($totalCart) }}</h5>
-                                    </div>
-                                    <div class="cart-btns">
-                                        <a href="{{ route('cart.detail') }}">View Cart</a>
-                                        <a href="#">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /Cart -->
-                        @endif
+                        <!-- Cart -->
+                        <div class="dropdown" id="cart-container">
+                            @include('cart.item_cart')
+                        </div>
+                        <!-- /Cart -->
 
                         <!-- Menu Toogle -->
                         <div class="menu-toggle">
@@ -312,6 +272,33 @@
 <script src="{{ asset('theme/user/js/nouislider.min.js') }}"></script>
 <script src="{{ asset('theme/user/js/jquery.zoom.min.js') }}"></script>
 <script src="{{ asset('theme/user/js/main.js') }}"></script>
+
+<script>
+    $(document).ready(function () {
+
+
+        $('.cart-dropdown').on('click', '.delete-item-cart', function (event) {
+            let id = $(this).attr('data-id');
+
+            $.ajax({
+                url: @json(route('delete.item.cart')),
+                method: 'GET',
+                data: {
+                    id: id
+                },
+                success: function (data) {
+                    $('#cart-container').html(data);
+                }
+            });
+
+            return false;
+        });
+
+
+    });
+</script>
+
+@yield('js')
 
 </body>
 </html>

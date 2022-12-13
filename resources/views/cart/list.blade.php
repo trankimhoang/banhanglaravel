@@ -41,4 +41,8 @@
         </tr>
     </table>
     <a href="{{ route('home') }}">Tiep tuc mua hang</a>
+    <form action="{{ route('vnpay_payment') }}" method="post">
+        @csrf
+        <button type="submit" name="redirect">Thanh toan VNPAY</button>
+    </form>
 @endsection

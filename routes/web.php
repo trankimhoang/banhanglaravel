@@ -31,6 +31,12 @@ Route::group(['middleware' => 'auth:web'], function () {
     Route::get('cart', [\App\Http\Controllers\HomeController::class, 'addCart'])->name('cart.add');
 
     Route::get('cartDetail', [\App\Http\Controllers\HomeController::class, 'cartDetail'])->name('cart.detail');
+
+    Route::post('vnpayPayment', [\App\Http\Controllers\HomeController::class, 'vnpayPayment'])->name('vnpay_payment');
+
+    Route::post('paymentCod', [\App\Http\Controllers\HomeController::class, 'paymentCod'])->name('payment.cod');
+
+    Route::get('deleteItemCart', [\App\Http\Controllers\HomeController::class, 'deleteItemCart'])->name('delete.item.cart');
 });
 
 
