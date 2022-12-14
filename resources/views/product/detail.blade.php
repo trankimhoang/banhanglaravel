@@ -32,9 +32,8 @@
 
                 <div class="add-to-cart">
                     <form action="{{ route('cart.add') }}" method="get">
-                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                        <input type="number" min="1" class="form-control" style="width: 100px; margin-bottom: 10px" name="quality" placeholder="so luong" value="1">
-                        <button class="add-to-cart-btn">
+                        <input type="number" min="1" class="form-control" style="width: 100px; margin-bottom: 10px" name="quality" id="product-quality" placeholder="so luong" value="1">
+                        <button class="add-to-cart-btn" data-id="{{ $product->id }}" type="button">
                             <i class="fa fa-shopping-cart"></i> add to cart
                         </button>
                     </form>

@@ -15,12 +15,7 @@
                 <td>{{ $product->id }}</td>
                 <td>{{ $product->name }}</td>
                 <td>
-                    @if(!empty($product->image))
-                        <img src="{{ asset($product->image) }}" width="100%">
-                    @else
-                        <img src="{{ asset('images/not_found.jpg') }}" width="100%">
-                    @endif
-
+                    <img src="{{ $product->getImage() }}" width="100%">
                 </td>
                 <td>{{ $product->price }}</td>
                 <td>{{ $product->description }}</td>

@@ -11,11 +11,7 @@
             <input type="text" name="name" class="form-control" value="{{ old('name', $product->name) }}">
         </div>
         <div class="form-group">
-            @if(!empty($product->image))
-                <img src="{{ asset($product->image) }}" width="256px" class="img-preview">
-            @else
-                <img src="{{ asset('images/not_found.jpg') }}" width="256px" class="img-preview">
-            @endif
+            <img src="{{ $product->getImage() }}" width="256px" class="img-preview">
             <label for="image">Image</label>
             <input type="file" name="image" id="image" class="form-control">
         </div>

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-App()->setLocale('vi');
+App()->setLocale('en');
 
 
 
@@ -28,15 +28,15 @@ Route::group(['middleware' => 'guest:web'], function () {
 });
 
 Route::group(['middleware' => 'auth:web'], function () {
-    Route::get('cart', [\App\Http\Controllers\HomeController::class, 'addCart'])->name('cart.add');
+    Route::get('cart', [\App\Http\Controllers\CartController::class, 'addCart'])->name('cart.add');
 
-    Route::get('cartDetail', [\App\Http\Controllers\HomeController::class, 'cartDetail'])->name('cart.detail');
+    Route::get('cartDetail', [\App\Http\Controllers\CartController::class, 'cartDetail'])->name('cart.detail');
 
     Route::post('vnpayPayment', [\App\Http\Controllers\HomeController::class, 'vnpayPayment'])->name('vnpay_payment');
 
     Route::post('paymentCod', [\App\Http\Controllers\HomeController::class, 'paymentCod'])->name('payment.cod');
 
-    Route::get('deleteItemCart', [\App\Http\Controllers\HomeController::class, 'deleteItemCart'])->name('delete.item.cart');
+    Route::get('deleteItemCart', [\App\Http\Controllers\CartController::class, 'deleteItemCart'])->name('delete.item.cart');
 });
 
 
@@ -56,3 +56,5 @@ Route::get('/', [\App\Http\Controllers\HomeController::class, "index"])->name('h
 Route::get('search', [\App\Http\Controllers\HomeController::class, 'search'])->name('search');
 
 Route::get('product_detail/{id}', [\App\Http\Controllers\ProductController::class, 'productDetail'])->name('product.detail');
+
+Route::get('category_detail/{id}', [\App\Http\Controllers\CategoryController::class, 'categoryDetail'])->name('category.detail');

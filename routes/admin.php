@@ -27,9 +27,6 @@
 
         Route::get('user/detail/{id}', [\App\Http\Controllers\Admin\HomeController::class, 'detailUser'])->name('user.detail');
 
-
-
-
         // admin.admin.index => trang list
         // admin.admin.create => trang html create
         // admin.admin.destroy => xoa
@@ -37,6 +34,8 @@
         // admin.admin.store => trang xu li them moi
         // admin.admin.edit => trang tao html edit
         Route::resource('admin', \App\Http\Controllers\Admin\AdminController::class);
+
+        Route::resource('category', \App\Http\Controllers\Admin\CategoryController::class);
     });
 
 

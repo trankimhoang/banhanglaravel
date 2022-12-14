@@ -30,39 +30,7 @@ class HomeController extends Controller
         return view('search', compact('search', 'listProduct'));
     }
 
-    public function addCart(Request $request){
-        $productId = $request->get('product_id');
-        $userId = Auth::guard('web')->user()->id;
-        $quality = $request->get('quality') ?? 1;
 
-        if ($quality < 1){
-            return redirect()->back()->with('error', 'So luong khong hop le');
-        }
-
-
-        $cartRow = DB::table('carts')
-            ->where('user_id', $userId)
-            ->where('product_id', $productId)
-            ->get()->first();
-
-        if (!empty($cartRow->id)){
-            $cart = Cart::find($cartRow->id);
-            $cart->setAttribute('quality', $cart->getAttribute('quality') + $quality);
-            $cart->save();
-        } else {
-            $cart = new Cart();
-            $cart->setAttribute('product_id', $productId);
-            $cart->setAttribute('user_id', $userId);
-            $cart->setAttribute('quality', $quality);
-            $cart->save();
-        }
-
-        return redirect()->back()->with('success', 'Them vao gio hang thanh cong');
-    }
-
-    public function cartDetail(Request $request){
-        return view('cart.list');
-    }
 
     public function vnpayPayment(){
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
@@ -171,15 +139,5 @@ class HomeController extends Controller
 
     public function paymentCod(){
 
-    }
-
-    // /delete-item id int
-    public function deleteItemCart(Request $request){
-        $id = $request->get('id');
-
-        $cart = Cart::find($id);
-        $cart->delete();
-
-        return view('cart.item_cart');
     }
 }
